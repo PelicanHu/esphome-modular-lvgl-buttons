@@ -146,7 +146,7 @@ lvgl:
   buffer_size: 100%
   pages:
     - id: main_page
-      layout: 10x6
+      layout: 4x6
       styles: page_style
       <<: !include esphome-modular-lvgl-buttons/common/swipe_navigation.yaml
       widgets:
@@ -155,7 +155,7 @@ lvgl:
             id: button_12
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 9
+            grid_cell_row_pos: 3
             grid_cell_column_pos: 5
             grid_cell_row_span: 1
             grid_cell_column_span: 1
@@ -166,7 +166,7 @@ lvgl:
                   text_font: $text_font
                   align: center
                   text_color: white
-                  text: "Cell 9,5"
+                  text: "Cell 3,5"
 
 # If you want to use other icons add them to the list here
 font:
