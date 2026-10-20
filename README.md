@@ -272,11 +272,22 @@ device (`hardware: !include esphome-modular-lvgl-buttons/hardware/<model>.yaml`)
 | `waveshare-esp32-p4-wifi6-touch-lcd-7b` | 7.0" | 1024×600 | `mipi_dsi` |
 | `waveshare-esp32-p4-wifi6-touch-lcd-10.1` | 10.1" | 800×1280 | `mipi_dsi` |
 | `waveshare-esp32-p4-wifi6-7-DSI-TOUCH-A` | 7.0" | 720×1280 | `mipi_dsi` |
+| `waveshare-esp32-p4-module-dev-kit-10.1-DSI-TOUCH-A` | 10.1" | 800×1280 | `mipi_dsi` |
 
-`waveshare-esp32-p4-wifi6-7-DSI-TOUCH-A` is the **two-piece** combination — a
-[ESP32-P4-WIFI6](https://www.waveshare.com/wiki/ESP32-P4-WIFI6-DEV-KIT) dev board with a
-separate [7-DSI-TOUCH-A](https://www.waveshare.com/wiki/7-DSI-TOUCH-A) panel on the
-MIPI-DSI FPC.
+The last two entries are **two-piece** combinations — a Raspberry-Pi-form-factor dev
+board with a separate DSI panel on the MIPI-DSI FPC, not an all-in-one unit:
+
+- `waveshare-esp32-p4-wifi6-7-DSI-TOUCH-A` —
+  [ESP32-P4-WIFI6-DEV-KIT](https://www.waveshare.com/wiki/ESP32-P4-WIFI6-DEV-KIT) +
+  [7-DSI-TOUCH-A](https://www.waveshare.com/wiki/7-DSI-TOUCH-A) (ILI9881C, 720×1280, 1Gbps).
+- `waveshare-esp32-p4-module-dev-kit-10.1-DSI-TOUCH-A` —
+  [ESP32-P4-Module-DEV-KIT](https://www.waveshare.com/wiki/ESP32-P4-Module-DEV-KIT) +
+  [10.1-DSI-TOUCH-A](https://www.waveshare.com/wiki/10.1-DSI-TOUCH-A) (JD9365, 800×1280,
+  1.5Gbps). Same carrier wiring as the WIFI6 DEV-KIT, but the module ships 16MB flash.
+
+Both boards have no LCD reset or backlight PWM GPIO: panel brightness is written over
+I2C (device `0x45`, register `0x96`) and the GT9271 touch controller is polled, because
+the DSI FPC carries no INT/RST lines.
 
 ### Guition
 
