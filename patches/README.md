@@ -55,6 +55,16 @@ the same firmware image can boot fine one day and loop the next.
 
 **Fix.** Add `delay(120)` after the reset, before the init sequence.
 
+> **This patch is NOT required to use this library.** The affected hardware file
+> now carries a self-contained YAML workaround: it declares `model: CUSTOM` and
+> supplies the JD9365 init sequence with a leading `- delay 120ms`, which lands
+> immediately after the software reset. A YAML `init_sequence:` on a *named* model
+> is appended *after* the model's own sequence, which is too late to help — hence
+> `CUSTOM`. The patch remains here as the upstream-shaped fix and as the
+> explanation of the root cause; applying it additionally is harmless but
+> redundant. Once ESPHome waits 120 ms itself, revert the hardware file to
+> `model: WAVESHARE-10.1-DSI-TOUCH-A` and drop the inlined sequence.
+
 Also included: `vsync_back_porch` 12 -> 10 for the JD9365 800x1280 model, matching the
 vendor's `JD9365_800_1280_PANEL_60HZ_DPI_CONFIG`. Cosmetic timing only; not the hang.
 
