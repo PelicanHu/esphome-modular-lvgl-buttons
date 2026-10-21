@@ -14,6 +14,11 @@
 #
 # Board-level notes (all panels on this board):
 #   - No LCD reset GPIO      (BSP_LCD_RST      = GPIO_NUM_NC) — panel self-resets
+#     NOTE: because there is no reset pin, ESPHome's mipi_dsi issues a DCS software
+#     reset and then sends the init sequence with no settling time. The JD9365 needs
+#     120ms after reset, so the sequence is ignored, the DSI command FIFO never
+#     drains, and the boot dies in the task watchdog — blank screen + safe mode.
+#     Intermittent, since it is a race. Fix: patches/esphome-2026.9.1-mipi-dsi-swreset-120ms.patch
 #   - No backlight PWM GPIO  (BSP_LCD_BACKLIGHT = GPIO_NUM_NC) — brightness is written
 #     over I2C to the panel's backlight controller: device 0x45, register 0x96, 0x00-0xFF
 #   - No touch INT / RST GPIO (both GPIO_NUM_NC) — GT9271 is polled on the shared I2C bus
